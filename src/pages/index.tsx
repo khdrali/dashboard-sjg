@@ -1,6 +1,7 @@
-import Image from "next/image";
+import Loading from "@/common/components/loading/Loading";
 import { Geist, Geist_Mono } from "next/font/google";
-import StatisticsChart from "@/common/components/ChartTab/StaticsChart";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,9 +14,17 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
+  const router = useRouter();
+  useEffect(() => {
+    setTimeout(() => {
+      router.push("/sales");
+    }, 1000);
+  }, []);
   return (
     <div
       className={`${geistSans.className} ${geistMono.className} font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20`}
-    ></div>
+    >
+      <Loading />
+    </div>
   );
 }
