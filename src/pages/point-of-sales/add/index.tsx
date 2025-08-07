@@ -1,30 +1,46 @@
 import InputText from "@/common/components/input/InputText";
+import { usePosContext, PosItem } from "@/common/context/PostContext";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 const AddPos = () => {
+  const router = useRouter();
+  const { addPosItem } = usePosContext(); // ✅ ambil dari context
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<Omit<PosItem, "id">>({
     defaultValues: {
       number: "",
       creationDate: "",
       customer: "",
       salesperson: "",
       Activities: "",
-      total: "",
+      total: "" as any,
       status: "",
     },
-    // resolver: yupResolver(loginSchema),
     reValidateMode: "onBlur",
   });
-  const router = useRouter();
+
+  const onSubmit = (data: Omit<PosItem, "id">) => {
+    const newItem: PosItem = {
+      id: Date.now(),
+      ...data,
+      total: Number(data.total),
+    };
+    addPosItem(newItem);
+    router.push("/point-of-sales");
+  };
+
   return (
     <div className="w-full mx-auto px-4 py-6 space-y-6">
       <h1 className="text-2xl font-semibold">Add New POS</h1>
-      <form className="space-y-4 bg-white p-6 rounded-xl border border-gray-200">
+      <form
+        onSubmit={handleSubmit(onSubmit)} // ✅ jangan lupa!
+        className="space-y-4 bg-white p-6 rounded-xl border border-gray-200"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <InputText
             label="Number"
@@ -36,7 +52,7 @@ const AddPos = () => {
           <InputText
             label="Creation Date"
             name="creationDate"
-            placeholder="Masukkan Creatiion Date"
+            placeholder="Masukkan Creation Date"
             requiredMark
             register={register}
           />

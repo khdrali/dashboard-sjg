@@ -28,9 +28,6 @@ const FlexibleTable: React.FC<FlexibleTableProps> = ({
       <table className="min-w-full table-auto border-collapse">
         <thead className="bg-gray-100">
           <tr>
-            <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 w-12">
-              No
-            </th>
             {columns.map((col) => (
               <th
                 key={col.key}
@@ -48,7 +45,6 @@ const FlexibleTable: React.FC<FlexibleTableProps> = ({
           {data.length > 0 ? (
             data.map((item, idx) => (
               <tr key={idx} className="border-t hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-gray-800">{idx + 1}</td>
                 {columns.map((col) => (
                   <td
                     key={col.key}

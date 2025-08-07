@@ -19,7 +19,7 @@ export default function LayoutContent({
     : "lg:ml-[90px]";
 
   return (
-    <div className="min-h-screen xl:flex">
+    <div className="min-h-screen xl:flex bg-[#f9fafb]">
       {/* Sidebar and Backdrop */}
       <AppSidebar />
       <Backdrop />

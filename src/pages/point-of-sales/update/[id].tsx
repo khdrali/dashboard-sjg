@@ -2,40 +2,17 @@ import InputText from "@/common/components/input/InputText";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useEffect, useMemo } from "react";
-
-// Dummy data
-const rawData = [
-  {
-    id: 1,
-    number: "500001",
-    creationDate: "08/03/2025 22:08",
-    customer: "Testing",
-    salesperson: "Muhammad Rafli",
-    Activities: "Active",
-    total: 2000000,
-    status: "Quotation",
-  },
-  {
-    id: 2,
-    number: "500002",
-    creationDate: "08/03/2025 22:08",
-    customer: "Testing",
-    salesperson: "Khaidar Ali",
-    Activities: "Active",
-    total: 200000,
-    status: "Quotation",
-  },
-  // dst...
-];
+import { usePosContext } from "@/common/context/PostContext";
 
 const UpdatePos = () => {
   const router = useRouter();
   const { id } = router.query;
+  const { posData, updatePosItem } = usePosContext();
 
   const selectedData = useMemo(() => {
     const numericId = Number(id);
-    return rawData.find((item) => item.id === numericId);
-  }, [id]);
+    return posData.find((item: any) => item.id === numericId);
+  }, [id, posData]);
 
   const {
     register,
@@ -62,7 +39,8 @@ const UpdatePos = () => {
   }, [selectedData, reset]);
 
   const onSubmit = (data: any) => {
-    console.log("Updated Data:", data);
+    const updatedData = { ...data, id: Number(id), total: Number(data.total) };
+    updatePosItem(updatedData);
     router.push("/point-of-sales");
   };
 
@@ -77,49 +55,42 @@ const UpdatePos = () => {
           <InputText
             label="Number"
             name="number"
-            placeholder="Masukkan Number"
             register={register}
             requiredMark
           />
           <InputText
             label="Creation Date"
             name="creationDate"
-            placeholder="Masukkan Creation Date"
             register={register}
             requiredMark
           />
           <InputText
             label="Customer"
             name="customer"
-            placeholder="Masukkan Customer"
             register={register}
             requiredMark
           />
           <InputText
             label="Salesperson"
             name="salesperson"
-            placeholder="Masukkan Salesperson"
             register={register}
             requiredMark
           />
           <InputText
             label="Activities"
             name="Activities"
-            placeholder="Masukkan Activities"
             register={register}
             requiredMark
           />
           <InputText
             label="Total"
             name="total"
-            placeholder="Masukkan Total"
             register={register}
             requiredMark
           />
           <InputText
             label="Status"
             name="status"
-            placeholder="Masukkan Status"
             register={register}
             requiredMark
           />
@@ -128,13 +99,13 @@ const UpdatePos = () => {
           <button
             type="button"
             onClick={() => router.back()}
-            className="px-4 py-2 bg-gray-200 rounded-lg cursor-pointer"
+            className="px-4 py-2 bg-gray-200 rounded-lg"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg cursor-pointer"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg"
           >
             Save
           </button>

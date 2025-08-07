@@ -21,6 +21,8 @@ const navItems: NavItem[] = [
     subItems: [
       { name: "Sales Dashboard", path: "/sales" },
       { name: "Point of Sales", path: "/point-of-sales" },
+      { name: "Calender", path: "/calender" },
+      { name: "Kanban", path: "/kanban" },
     ],
   },
 ];
