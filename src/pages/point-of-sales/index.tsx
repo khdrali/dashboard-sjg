@@ -7,6 +7,7 @@ import TablePagination from "@/common/components/pagination/Pagination";
 import { formatPrice } from "@/common/utils/formatPrice";
 import { usePosContext } from "@/common/context/PostContext"; // ⬅ Tambahkan ini
 
+// table head
 const columns = [
   { label: "No", key: "no" },
   { label: "Number", key: "number" },
@@ -19,9 +20,13 @@ const columns = [
 ];
 
 export default function PointOfSalesPage() {
+  // route
   const router = useRouter();
-  const { posData, deletePosItem } = usePosContext(); // ⬅ Pakai context global
 
+  // state global buat nambah data dummy pas buat data baru
+  const { posData, deletePosItem } = usePosContext();
+
+  // state search & page
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
@@ -31,6 +36,7 @@ export default function PointOfSalesPage() {
     setPage(1);
   }, [search]);
 
+  // fungsi search
   const filtered = useMemo(() => {
     if (!search) return posData;
     const term = search.toLowerCase();
@@ -41,6 +47,7 @@ export default function PointOfSalesPage() {
     );
   }, [search, posData]);
 
+  // fungsi batasin data yang ditampilin per page
   const paginated = useMemo(() => {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
@@ -52,6 +59,7 @@ export default function PointOfSalesPage() {
     }));
   }, [filtered, page]);
 
+  // fungsi delete row table
   const handleDelete = (id: number) => {
     const confirmDelete = confirm(`Hapus data dengan ID ${id}?`);
     if (confirmDelete) {
@@ -64,20 +72,23 @@ export default function PointOfSalesPage() {
       <div className="flex justify-between items-center flex-wrap gap-4">
         <h1 className="text-2xl font-semibold">Point of Sales</h1>
         <div className="flex gap-4 items-center">
+          {/* component search */}
           <TableSearch
             value={search}
             onChange={setSearch}
             placeholder="Search"
           />
           <button
+            // fungsi saat di klik
             onClick={() => router.push("/point-of-sales/add")}
+            // style
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg w-[200px]"
           >
             + Add New
           </button>
         </div>
       </div>
-
+      {/* component table */}
       <div className="overflow-x-auto w-full">
         <FlexibleTable
           columns={columns}
@@ -91,7 +102,7 @@ export default function PointOfSalesPage() {
           }
         />
       </div>
-
+      {/* pagination */}
       {filtered.length > itemsPerPage && (
         <TablePagination
           currentPage={page}

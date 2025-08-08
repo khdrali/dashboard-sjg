@@ -18,10 +18,12 @@ const SubmitButton = ({
     <button
       type={type ?? "submit"}
       disabled={disabled}
+      // style
       className={clsx([
         "bg-blue-600 flex h-[50px] w-full items-center justify-center rounded-md px-[26px] transition-colors duration-300",
         "hover:bg-blue-500 hover:cursor-pointer",
       ])}
+      // function klik
       onClick={(e) => {
         if (onClick) {
           e.preventDefault();
@@ -31,6 +33,7 @@ const SubmitButton = ({
         }
       }}
     >
+      {/* text component */}
       <span className="text-[#ffffff] text-lg leading-[120%] font-medium">
         {label}
       </span>

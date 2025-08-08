@@ -5,8 +5,10 @@ import { PosItem } from "@/common/context/PostContext";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 
+// total page per halaman
 const itemsPerPage = 15;
 
+// contoh data
 const initialPosData: PosItem[] = [
   {
     id: 1,
@@ -252,9 +254,12 @@ const initialPosData: PosItem[] = [
 
 const KanbanPage = () => {
   const router = useRouter();
+  // state search
   const [searchTerm, setSearchTerm] = useState("");
+  // state page
   const [page, setPage] = useState(1);
 
+  // filter data by customer dan number
   const filteredData = useMemo(() => {
     return initialPosData.filter(
       (item) =>
@@ -263,6 +268,7 @@ const KanbanPage = () => {
     );
   }, [searchTerm]);
 
+  // ambil data dari page yang aktif
   const paginatedData = useMemo(() => {
     const startIndex = (page - 1) * itemsPerPage;
     return filteredData.slice(startIndex, startIndex + itemsPerPage);
@@ -272,13 +278,12 @@ const KanbanPage = () => {
     setPage(1); // Reset ke halaman 1 saat search berubah
   }, [searchTerm]);
 
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
   return (
     <div className="w-full flex flex-col gap-6">
       <div className="flex justify-between items-center flex-wrap gap-4">
         <h1 className="text-2xl font-semibold">Kanban</h1>
         <div className="flex gap-4 items-center">
+          {/* component search */}
           <TableSearch
             value={searchTerm}
             onChange={setSearchTerm}
@@ -296,6 +301,7 @@ const KanbanPage = () => {
       {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {paginatedData.map((item) => (
+          // component card kanban
           <KanbanCard
             key={item.id}
             creationDate={item?.creationDate}

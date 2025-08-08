@@ -5,15 +5,20 @@ import { useEffect, useMemo } from "react";
 import { usePosContext } from "@/common/context/PostContext";
 
 const UpdatePos = () => {
+  // route
   const router = useRouter();
+  // ambil slug
   const { id } = router.query;
+  // fungsi untuk update data ke global
   const { posData, updatePosItem } = usePosContext();
 
+  // ambil data untuk di tampilkan berdasarkan id dari slug
   const selectedData = useMemo(() => {
     const numericId = Number(id);
     return posData.find((item: any) => item.id === numericId);
   }, [id, posData]);
 
+  // use form bawaan next
   const {
     register,
     handleSubmit,
@@ -38,6 +43,7 @@ const UpdatePos = () => {
     }
   }, [selectedData, reset]);
 
+  // fungsi submit data
   const onSubmit = (data: any) => {
     const updatedData = { ...data, id: Number(id), total: Number(data.total) };
     updatePosItem(updatedData);

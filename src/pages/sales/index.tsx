@@ -1,21 +1,19 @@
 import StatisticsChart from "@/common/components/ChartTab/StaticsChart";
 import { formatPrice } from "@/common/utils/formatPrice";
+import { FaCalendar } from "react-icons/fa";
 
 const DashboardSales = () => {
   return (
     <div className="w-full flex flex-col gap-7 overflow-hidden">
       <div className="flex w-full justify-between items-center">
-        <div className=" rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-all duration-200">
-          <p className="text-lg font-semibold text-gray-800 mb-4">Total</p>
-
-          <div className="flex items-center gap-6 justify-between">
-            <p className="text-xl font-bold text-gray-900">
+        <div className="flex justify-between items-center w-full max-w-[250px] rounded-md border-l-4 border-[#4E73DE] bg-white p-6 shadow-sm hover:shadow-md transition-all duration-200">
+          <div className="flex items-start flex-col justify-center">
+            <p className="text-sm text-[#4E73DE]">Total</p>
+            <p className="text-xl text-[#5a5c69] font-bold">
               {formatPrice(10000000)}
             </p>
-            <p className="text-sm font-medium text-green-500 bg-green-100 px-2 py-1 rounded-full">
-              +20%
-            </p>
           </div>
+          <FaCalendar className="text-[#dddfeb] w-8 h-8" />
         </div>
       </div>
       <StatisticsChart />

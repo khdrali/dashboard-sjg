@@ -32,16 +32,16 @@ const AppSidebar: React.FC = () => {
   const pathname = usePathname();
 
   const renderMenuItems = (navItems: NavItem[], menuType: "main") => (
-    <ul className="flex flex-col gap-4">
+    <ul className="flex flex-col gap-3">
       {navItems.map((nav, index) => (
         <li key={nav.name}>
           {nav.subItems ? (
             <button
               onClick={() => handleSubmenuToggle(index, menuType)}
-              className={`flex items-center w-full gap-3 px-3 py-2 font-medium rounded-lg text-sm group  ${
+              className={`flex items-center w-full gap-3 px-3 py-2 font-medium rounded-lg text-base group  ${
                 openSubmenu?.type === menuType && openSubmenu?.index === index
-                  ? "bg-[#ecf3ff] text-[#465fff]"
-                  : "text-gray-700 hover:bg-gray-100 group-hover:text-gray-700"
+                  ? " text-[#d1e1f8]"
+                  : "text-[#d1e1f8]  group-hover:text-white"
               } cursor-pointer ${
                 !isExpanded && !isHovered
                   ? "lg:justify-center"
@@ -51,18 +51,20 @@ const AppSidebar: React.FC = () => {
               <span
                 className={` ${
                   openSubmenu?.type === menuType && openSubmenu?.index === index
-                    ? "text-[#465fff]"
-                    : "text-gray-500 group-hover:text-gray-700"
+                    ? "text-[#839de9]"
+                    : "text-[#d1e1f8] group-hover:text-white"
                 }`}
               >
                 {nav.icon}
               </span>
               {(isExpanded || isHovered || isMobileOpen) && (
-                <span className={`menu-item-text`}>{nav.name}</span>
+                <span className={`text-[#d1e1f8] group-hover:text-white`}>
+                  {nav.name}
+                </span>
               )}
               {(isExpanded || isHovered || isMobileOpen) && (
                 <FiChevronDown
-                  className={`ml-auto w-5 h-5 transition-transform duration-200  ${
+                  className={`ml-auto w-5 h-5 transition-transform duration-200 text-[#d1e1f8] group-hover:text-white ${
                     openSubmenu?.type === menuType &&
                     openSubmenu?.index === index
                       ? "rotate-180 text-brand-500"
@@ -75,16 +77,16 @@ const AppSidebar: React.FC = () => {
             nav.path && (
               <Link
                 href={nav.path}
-                className={`flex items-center w-full gap-3 px-3 py-2 font-medium rounded-lg text-sm group ${
+                className={`flex items-center w-full gap-3 px-3 py-1 font-medium rounded-lg text-sm group ${
                   isActive(nav.path)
-                    ? "bg-[#ecf3ff] text-[#465fff]"
-                    : "text-gray-700 hover:bg-gray-100 group-hover:text-gray-700"
+                    ? " text-[#d1e1f8]"
+                    : "text-[#d1e1f8]  group-hover:text-white"
                 }`}
               >
                 <span
                   className={`${
                     isActive(nav.path)
-                      ? "text-[#465fff]"
+                      ? "text-[#4e73df]"
                       : "text-gray-500 group-hover:text-gray-700"
                   }`}
                 >
@@ -109,19 +111,20 @@ const AppSidebar: React.FC = () => {
                     : "0px",
               }}
             >
-              <ul className="mt-2 space-y-1 ml-9">
-                {nav.subItems.map((subItem) => (
-                  <li key={subItem.name}>
-                    <Link
-                      href={subItem.path}
-                      className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${
-                        isActive(subItem.path)
-                          ? "bg-[#ecf3ff] text-[#465fff]"
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`}
-                    >
-                      {subItem.name}
-                      {/* <span className="flex items-center gap-1 ml-auto">
+              <ul className="mt-2 space-y-1 ml-3">
+                <div className="bg-white px-3 py-2 rounded-md">
+                  {nav.subItems.map((subItem) => (
+                    <li key={subItem.name}>
+                      <Link
+                        href={subItem.path}
+                        className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm ${
+                          isActive(subItem.path)
+                            ? " text-[#4e73df] font-semibold"
+                            : "text-gray-700 hover:bg-gray-200"
+                        }`}
+                      >
+                        {subItem.name}
+                        {/* <span className="flex items-center gap-1 ml-auto">
                         {subItem.new && (
                           <span
                             className={`ml-auto ${
@@ -134,9 +137,10 @@ const AppSidebar: React.FC = () => {
                           </span>
                         )}
                       </span> */}
-                    </Link>
-                  </li>
-                ))}
+                      </Link>
+                    </li>
+                  ))}
+                </div>
               </ul>
             </div>
           )}
@@ -211,12 +215,12 @@ const AppSidebar: React.FC = () => {
 
   return (
     <aside
-      className={`fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200 
+      className={`bg-[#4e73df] fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200 
         ${
           isExpanded || isMobileOpen
-            ? "w-[290px]"
+            ? "w-[250px]"
             : isHovered
-            ? "w-[290px]"
+            ? "w-[250px]"
             : "w-[90px]"
         }
         ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}

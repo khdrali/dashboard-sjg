@@ -33,6 +33,7 @@ const InputText = <T extends FieldValues>({
   error,
   watch,
 }: InputTextProps<T>) => {
+  // state menampilkan error & pada saat focus di input
   const [showError, setShowError] = useState(false);
   const [hasBeenFocused, setHasBeenFocused] = useState(false);
   const [isCurrentlyFocused, setIsCurrentlyFocused] = useState(false);

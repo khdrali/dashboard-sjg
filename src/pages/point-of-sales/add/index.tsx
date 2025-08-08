@@ -4,9 +4,12 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 const AddPos = () => {
+  // route
   const router = useRouter();
+  // fungsi untuk menambahkan data dummy ke global
   const { addPosItem } = usePosContext(); // ✅ ambil dari context
 
+  // use form bawaan next
   const {
     register,
     handleSubmit,
@@ -24,6 +27,7 @@ const AddPos = () => {
     reValidateMode: "onBlur",
   });
 
+  // fungsi submit data baru
   const onSubmit = (data: Omit<PosItem, "id">) => {
     const newItem: PosItem = {
       id: Date.now(),

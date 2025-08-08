@@ -1,8 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState } from "react";
 import { Dropdown } from "../dropdown/dropdown";
 import { DropdownItem } from "../dropdown/dropdownItem";
+import { useRouter } from "next/router";
+import { deleteCookieClient } from "@/common/utils/cookies";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +12,13 @@ export default function UserDropdown() {
     e.stopPropagation();
     setIsOpen((prev) => !prev);
   }
+
+  const router = useRouter();
+
+  const Logout = () => {
+    deleteCookieClient("token");
+    router.push("/auth/login");
+  };
 
   function closeDropdown() {
     setIsOpen(false);
@@ -143,9 +151,11 @@ export default function UserDropdown() {
             </DropdownItem>
           </li>
         </ul>
-        <Link
-          href="/signin"
-          className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+        <button
+          onClick={() => {
+            Logout();
+          }}
+          className="cursor-pointer flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
         >
           <svg
             className="fill-gray-500 group-hover:fill-gray-700 dark:group-hover:fill-gray-300"
@@ -163,7 +173,7 @@ export default function UserDropdown() {
             />
           </svg>
           Sign out
-        </Link>
+        </button>
       </Dropdown>
     </div>
   );

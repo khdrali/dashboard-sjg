@@ -15,24 +15,26 @@ export default function LayoutContent({
   const mainContentMargin = isMobileOpen
     ? "ml-0"
     : isExpanded || isHovered
-    ? "lg:ml-[290px]"
+    ? "lg:ml-[250px]"
     : "lg:ml-[90px]";
 
   return (
-    <div className="min-h-screen xl:flex bg-[#f9fafb]">
+    <div className="flex min-h-screen bg-[#f9fafb]">
       {/* Sidebar and Backdrop */}
       <AppSidebar />
       <Backdrop />
+
       {/* Main Content Area */}
       <div
-        className={`flex-1 transition-all  duration-300 ease-in-out ${mainContentMargin}`}
+        className={`transition-all duration-300 ease-in-out ${mainContentMargin} flex flex-col flex-1`}
       >
         {/* Header */}
         <AppHeader />
+
         {/* Page Content */}
-        <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
+        <main className="flex-1 overflow-y-auto p-4 mx-auto max-w-screen-2xl md:p-6 w-full">
           {children}
-        </div>
+        </main>
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ export default function TableSearch({
   const [inputValue, setInputValue] = useState(value);
 
   useEffect(() => {
+    // debounce
     const handler = setTimeout(() => {
       onChange(inputValue);
     }, delay);
