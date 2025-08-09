@@ -1,13 +1,13 @@
+import React from "react";
 import SubmitButton from "@/common/components/button/SubmitButton";
 import InputPassword from "@/common/components/input/InputPassword";
 import InputText from "@/common/components/input/InputText";
-import React from "react";
 import { useForm } from "react-hook-form";
-import { LoginRequest } from "./models/type";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { LoginSchema } from "./schema/schema";
 import { useRouter } from "next/router";
 import { setCookieClient } from "@/common/utils/cookies";
+import { LoginRequest } from "@/models/type";
+import { LoginSchema } from "@/schema/schema";
 
 const Login = () => {
   const {
