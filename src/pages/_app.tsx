@@ -1,5 +1,6 @@
 import MainLayouts from "@/common/components/layouts/MainLayouts";
 import { PosProvider } from "@/common/context/PostContext";
+import { ProductProvider } from "@/common/context/ProdukContext";
 import "@/styles/globals.css";
 import "@fullcalendar/core";
 import "@fullcalendar/daygrid";
@@ -19,7 +20,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <MainLayouts>
       <PosProvider>
-        <Component {...pageProps} />
+        <ProductProvider>
+          <Component {...pageProps} />
+        </ProductProvider>
       </PosProvider>
     </MainLayouts>
   );
