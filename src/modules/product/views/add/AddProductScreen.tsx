@@ -48,12 +48,14 @@ const AddProductScreen = () => {
           <InputText
             label="Harga"
             name="price"
+            type="number"
             placeholder="Masukkan Harga"
             register={register}
             requiredMark
           />
           <InputText
             label="Jumlah Produk"
+            type="number"
             name="quantity"
             placeholder="Masukkan Jumlah Produk"
             register={register}
