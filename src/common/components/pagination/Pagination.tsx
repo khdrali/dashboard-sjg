@@ -54,9 +54,9 @@ const TablePagination: React.FC<TablePaginationProps> = ({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-center gap-2 py-4 flex-wrap">
+    <div className="flex flex-wrap items-center justify-center gap-2 py-4">
       <button
-        className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+        className="cursor-pointer rounded bg-gray-200 px-3 py-1 text-black disabled:opacity-50"
         onClick={() => onPageChange(currentPage - 1)}
         // fungsi disable button prev
         disabled={currentPage === 1}
@@ -73,11 +73,11 @@ const TablePagination: React.FC<TablePaginationProps> = ({
           <button
             key={page}
             // style line 75-80
-            className={`px-3 py-1 rounded ${
+            className={`cursor-pointer rounded px-3 py-1 text-black ${
               // validasi style
               currentPage === page
                 ? "bg-blue-600 text-white"
-                : "bg-gray-200 text-black"
+                : "cursor-pointer bg-gray-200 text-black"
             }`}
             onClick={() => onPageChange(Number(page))}
           >
@@ -87,7 +87,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({
       )}
 
       <button
-        className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+        className="cursor-pointer rounded bg-gray-200 px-3 py-1 text-black disabled:opacity-50"
         onClick={() => onPageChange(currentPage + 1)}
         // validasi disable button
         disabled={currentPage === totalPages}

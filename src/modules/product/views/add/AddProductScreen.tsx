@@ -32,7 +32,7 @@ const AddProductScreen = () => {
 
   return (
     <div className="mx-auto w-full space-y-6 px-4 py-6">
-      <h1 className="text-2xl font-semibold">Add New Product</h1>
+      <h1 className="text-2xl font-semibold text-black">Add New Product</h1>
       <form
         className="space-y-4 rounded-xl border border-gray-200 bg-white p-6"
         onSubmit={handleSubmit(onSubmit)}
@@ -64,7 +64,7 @@ const AddProductScreen = () => {
           <button
             type="button"
             onClick={() => router.back()}
-            className="rounded-lg bg-gray-200 px-4 py-2"
+            className="rounded-lg bg-gray-200 px-4 py-2 text-black"
           >
             Cancel
           </button>

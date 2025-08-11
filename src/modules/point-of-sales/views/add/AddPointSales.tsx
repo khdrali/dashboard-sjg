@@ -1,23 +1,32 @@
+import InputDateTime from "@/common/components/input/DatePicker";
 import InputText from "@/common/components/input/InputText";
 import { usePosContext, PosItem } from "@/common/context/PostContext";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { useMemo } from "react";
+import { format } from "date-fns";
 
 const AddPointSales = () => {
-  // route
   const router = useRouter();
-  // fungsi untuk menambahkan data dummy ke global
-  const { addPosItem } = usePosContext(); // ✅ ambil dari context
+  const { posData, addPosItem } = usePosContext();
 
-  // use form bawaan next
+  // Cari number terbesar lalu +1
+  const nextNumber = useMemo(() => {
+    if (posData.length === 0) return "500001";
+    const maxNumber = Math.max(...posData.map((item) => Number(item.number)));
+    return String(maxNumber + 1).padStart(6, "0");
+  }, [posData]);
+
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<Omit<PosItem, "id">>({
     defaultValues: {
-      number: "",
-      creationDate: "",
+      number: nextNumber, // otomatis isi dari context
+      creationDate: format(new Date(), "dd/MM/yyyy HH:mm"),
       customer: "",
       salesperson: "",
       Activities: "",
@@ -27,7 +36,6 @@ const AddPointSales = () => {
     reValidateMode: "onBlur",
   });
 
-  // fungsi submit data baru
   const onSubmit = (data: Omit<PosItem, "id">) => {
     const newItem: PosItem = {
       id: Date.now(),
@@ -40,9 +48,9 @@ const AddPointSales = () => {
 
   return (
     <div className="mx-auto w-full space-y-6 px-4 py-6">
-      <h1 className="text-2xl font-semibold">Add New POS</h1>
+      <h1 className="text-2xl font-semibold text-black">Add New POS</h1>
       <form
-        onSubmit={handleSubmit(onSubmit)} // ✅ jangan lupa!
+        onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 rounded-xl border border-gray-200 bg-white p-6"
       >
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -53,12 +61,18 @@ const AddPointSales = () => {
             register={register}
             requiredMark
           />
-          <InputText
-            label="Creation Date"
-            name="creationDate"
-            placeholder="Masukkan Creation Date"
-            requiredMark
+          <InputDateTime
             register={register}
+            setValue={setValue}
+            watch={watch}
+            name="creationDate"
+            label="Creation Date"
+            placeholder="Pilih tanggal dan jam"
+            error={{
+              isError: !!errors.creationDate,
+              message: errors.creationDate?.message as string,
+            }}
+            requiredMark
           />
           <InputText
             label="Customer"
@@ -83,6 +97,7 @@ const AddPointSales = () => {
           />
           <InputText
             label="Total"
+            type="number"
             placeholder="Masukkan Total"
             name="total"
             requiredMark

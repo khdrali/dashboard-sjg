@@ -143,20 +143,22 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     product: Omit<ProductItem, "id" | "quantity_payment">
   ) => {
     setProducts((prev) => [
-      ...prev,
       {
-        id: prev.length > 0 ? prev[prev.length - 1].id + 1 : 1, // auto increment id
+        id: prev.length > 0 ? prev[prev.length - 1].id + 1 : 1,
         quantity_payment: 0,
         ...product,
       },
+      ...prev, // produk lama di belakang
     ]);
   };
 
   // Update quantity langsung (bisa naik/turun)
-  const updateQuantity = (id: number, quantity: number) => {
+  const updateQuantity = (id: number, quantity_payment: number) => {
     setProducts((prev) =>
       prev.map((p) =>
-        p.id === id ? { ...p, quantity: Math.max(0, quantity) } : p
+        p.id === id
+          ? { ...p, quantity_payment: Math.max(0, quantity_payment) }
+          : p
       )
     );
   };

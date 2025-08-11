@@ -32,8 +32,8 @@ const CardProduct = ({
         />
         <div className="mt-1 flex w-full flex-col gap-4 px-2">
           <div>
-            <p className="line-clamp-2 text-sm leading-4">{title}</p>
-            <p className="mt-2 text-sm font-semibold">
+            <p className="line-clamp-2 text-sm leading-4 text-black">{title}</p>
+            <p className="mt-2 text-sm font-semibold text-black">
               {formatPrice(price ?? 0)}
             </p>
           </div>
@@ -45,15 +45,17 @@ const CardProduct = ({
           <div className="flex items-center gap-2">
             <button
               onClick={onRemove}
-              className={`h-[30px] w-[30px] cursor-pointer rounded-md border border-[#4e73df] hover:bg-[#4e73df] hover:text-white`}
+              className={`h-[30px] w-[30px] cursor-pointer rounded-md border border-[#4e73df] text-black hover:bg-[#4e73df] hover:text-white`}
             >
               -
             </button>
-            <span className="min-w-[20px] text-center text-sm">{quantity}</span>
+            <span className="min-w-[20px] text-center text-sm text-black">
+              {quantity}
+            </span>
             <button
               disabled={disable}
               onClick={onAdd}
-              className={`h-[30px] w-[30px] rounded-md ${disable ? "cursor-default opacity-50" : "cursor-pointer hover:bg-[#4e73df] hover:text-white"} border border-[#4e73df]`}
+              className={`h-[30px] w-[30px] rounded-md text-black ${disable ? "cursor-default opacity-50" : "cursor-pointer hover:bg-[#4e73df] hover:text-white"} border border-[#4e73df]`}
             >
               +
             </button>
@@ -62,7 +64,7 @@ const CardProduct = ({
           <button
             onClick={onAdd}
             disabled={disable}
-            className={`flex h-[30px] w-[80px] ${disable ? "cursor-default opacity-50" : "cursor-pointer hover:bg-[#4e73df] hover:text-white"} items-center justify-center rounded-md border border-[#4e73df]`}
+            className={`flex h-[30px] w-[80px] ${disable ? "cursor-default opacity-50" : "cursor-pointer hover:bg-[#4e73df] hover:text-white"} items-center justify-center rounded-md border border-[#4e73df] text-black`}
           >
             <p className="text-sm">Add</p>
           </button>

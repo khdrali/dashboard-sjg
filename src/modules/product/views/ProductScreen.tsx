@@ -12,7 +12,7 @@ const ProductScreen = () => {
   const { products, updateQuantity } = useProductContext();
 
   const [page, setPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 12;
 
   // Reset ke halaman 1 kalau search berubah
   useEffect(() => {
@@ -40,7 +40,7 @@ const ProductScreen = () => {
         }`}
       >
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <h1 className="text-2xl font-semibold">Product</h1>
+          <h1 className="text-2xl font-semibold text-black">Product</h1>
           <div className="flex items-center gap-4">
             <div
               className={`${cartItems.length > 0 ? "w-[200px]" : "w-[300px]"}`}
@@ -73,10 +73,10 @@ const ProductScreen = () => {
                 quantity={v.quantity_payment}
                 onAdd={() => {
                   if (v.quantity_payment < v.quantity) {
-                    updateQuantity(v.id, v.quantity);
+                    updateQuantity(v.id, v.quantity_payment + 1);
                   }
                 }}
-                onRemove={() => updateQuantity(v.id, v.quantity)}
+                onRemove={() => updateQuantity(v.id, v.quantity_payment - 1)}
                 disable={v.quantity === 0 || v.quantity_payment >= v.quantity}
               />
             ))
@@ -99,7 +99,7 @@ const ProductScreen = () => {
       {/* Kanan - Cart */}
       {cartItems.length > 0 && (
         <div className="fixed top-0 right-0 z-50 h-screen w-[380px] overflow-y-auto rounded-md bg-white p-4 shadow-lg transition-transform duration-300">
-          <h2 className="mb-4 text-lg font-semibold">Order</h2>
+          <h2 className="mb-4 text-lg font-semibold text-black">Order</h2>
           <ul className="flex flex-col gap-6">
             {cartItems.map((item) => (
               <li
@@ -114,15 +114,15 @@ const ProductScreen = () => {
                     alt={item.title}
                   />
                   <div className="flex flex-col items-start justify-between gap-2">
-                    <span className="line-clamp-2 w-[140px] text-sm font-semibold">
+                    <span className="line-clamp-2 w-[140px] text-sm font-semibold text-black">
                       {item.title}
                     </span>
-                    <span className="text-xs font-medium">
+                    <span className="text-xs font-medium text-black">
                       x{item.quantity_payment}
                     </span>
                   </div>
                 </div>
-                <span className="text-base font-semibold">
+                <span className="text-base font-semibold text-black">
                   {formatPrice(item.price * item.quantity_payment)}
                 </span>
               </li>

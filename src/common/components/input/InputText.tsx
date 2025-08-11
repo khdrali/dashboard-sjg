@@ -14,6 +14,7 @@ interface InputTextProps<T extends FieldValues> {
   watch?: UseFormWatch<T>; // Add watch to monitor field value
 
   placeholder?: string;
+  type?: string;
   disabled?: boolean;
   requiredMark?: boolean;
 
@@ -28,6 +29,7 @@ const InputText = <T extends FieldValues>({
   name,
   label,
   placeholder,
+  type,
   disabled = false,
   requiredMark = false,
   error,
@@ -98,24 +100,26 @@ const InputText = <T extends FieldValues>({
     <div className="flex w-full flex-col gap-2.5">
       <label
         htmlFor={name.toString()}
-        className="text-[#292929] text-sm leading-[120%] font-normal"
+        className="text-sm leading-[120%] font-normal text-[#292929]"
       >
         {label}
-        {requiredMark && <span className="text-[#ff4c4c] ml-[5px]">*</span>}
+        {requiredMark && <span className="ml-[5px] text-[#ff4c4c]">*</span>}
       </label>
 
       <input
-        type={"text"}
+        type={type ? type : "text"}
         id={name.toString()}
         placeholder={placeholder}
+        onWheel={(e) => e.currentTarget.blur()}
         className={clsx([
           "ring-0 outline-0",
-          "bg-[#ffffff] h-[50px] w-full rounded-md border px-3 text-base leading-[120%] font-normal",
+          type === "number" && "no-spinner",
+          "h-[50px] w-full rounded-md border bg-[#ffffff] px-3 text-base leading-[120%] font-normal",
           "focus:border-transparent focus:outline-2",
           // Dynamic styling berdasarkan state
           showError
-            ? "border-[#ff4c4c] focus:outline-x-error text-[#ff4c4c] focus:text-[#ff4c4c]"
-            : "focus:outline-[#292929] text-[#292929] focus:text-[#292929] border-gray-300",
+            ? "focus:outline-x-error border-[#ff4c4c] text-[#ff4c4c] focus:text-[#ff4c4c]"
+            : "border-gray-300 text-[#292929] focus:text-[#292929] focus:outline-[#292929]",
           // Styling saat disabled
           disabled && "cursor-not-allowed opacity-50",
         ])}
@@ -128,7 +132,7 @@ const InputText = <T extends FieldValues>({
       />
 
       {showError && (
-        <span className="text-[#ff4c4c] text-sm leading-[120%] font-normal">
+        <span className="text-sm leading-[120%] font-normal text-[#ff4c4c]">
           {error?.message ?? ""}
         </span>
       )}
